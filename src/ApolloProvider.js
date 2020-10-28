@@ -5,7 +5,7 @@ import { setContext } from "apollo-link-context";
 import { createHttpLink } from "apollo-link-http";
 
 const httpLink = createHttpLink({
-  uri: "/graphql",
+  uri: "https://polar-escarpment-56056.herokuapp.com/",
 });
 
 const authLink = setContext(() => {
@@ -18,7 +18,7 @@ const authLink = setContext(() => {
 });
 
 const client = new ApolloClient({
-  uri: "/graphql",
+  uri: "https://polar-escarpment-56056.herokuapp.com/",
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
