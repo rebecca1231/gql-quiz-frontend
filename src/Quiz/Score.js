@@ -10,7 +10,7 @@ const Score = () => {
     <div>
       <h1>Your Quiz Score</h1>
       <p>
-        You answered {score} correctly out of {count} questions total.
+        You answered {score} correctly out of {count-1} questions total.
       </p>
       <div>
         <PieChart />

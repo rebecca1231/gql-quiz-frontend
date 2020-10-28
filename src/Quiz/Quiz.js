@@ -7,6 +7,7 @@ import Flashcard from "./Flashcard";
 import { CountContext } from "../context/countContext";
 import { getRandomNumber } from "../util/quiz/getRandomNumber";
 import { FETCH_MOVIE_LIST_QUERY } from "../util/quiz/graphqlFetchData";
+import "./Quiz.css";
 
 const Choices = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ const Review = () => {
   const history = useHistory();
   const [, setUpdate] = useState();
   const forceUpdate = useCallback(() => setUpdate({}), []);
-  const [finished, setFinished] = useState(false);
+  const [finished, setFinished] = useState(true);
   const { count, score, updateCount, updateScore } = useContext(CountContext);
 
   const { data: { getMovieList: list } = {} } = useQuery(
@@ -32,43 +33,50 @@ const Review = () => {
     }
   );
 
-
   if (list) {
-    let currentSet = [...list.items];
+    let dataSet = [...list.items];
+    let currentSet = dataSet.filter((d) => !correctAnswers.includes(d));
     const dataLength = list.items.length + 1;
     let items = [];
     let answer = "";
 
     const chooseChoices = (numberOfChoices = 4) => {
-      let counter = 0;
-      while (counter < numberOfChoices) {
-        let item = currentSet[getRandomNumber(currentSet.length)];
-        if (items.includes(item)) {
-          item = currentSet[getRandomNumber(currentSet.length)];
-        } else {
-          items.push(item);
-          counter++;
+      if (currentSet.length > 4) {
+        let counter = 0;
+        while (counter < numberOfChoices) {
+          let item = currentSet[getRandomNumber(currentSet.length)];
+          if (items.includes(item)) {
+            item = currentSet[getRandomNumber(currentSet.length)];
+          } else {
+            items.push(item);
+            counter++;
+          }
+        }
+      } else {
+        let counter = currentSet.length;
+        items = [...currentSet];
+        while (counter < 4) {
+          let item = correctAnswers[getRandomNumber(8)];
+          if (items.includes(item)) {
+            item = currentSet[getRandomNumber(currentSet.length)];
+          } else {
+            items.push(item);
+            console.log("pushedItem", item);
+            counter++;
+          }
         }
       }
+      console.log("chooseChoices", items);
       return items;
     };
 
     const respondToCorrect = (item) => {
-      if (currentSet.length > 4) {
-        const index = currentSet.indexOf(item);
-        if (index > -1) currentSet.splice(index, 1);
-        console.log(index, currentSet);
-      }
+      console.log("respondToCorr ", item, correctAnswers);
       if (correctAnswers.includes(item)) {
         return;
       } else correctAnswers.push(item);
       if (correctAnswers.length + 1 === dataLength) setFinished(true);
-      return (correctAnswers, currentSet);
-    };
-
-    const respondToIncorrect = (item) => {
-      currentSet.push(item);
-      return currentSet;
+      return correctAnswers;
     };
 
     const renderChoices = () => {
@@ -79,8 +87,8 @@ const Review = () => {
         const itemIndex = items.indexOf(item);
         return (
           <Flashcard
-          item={item}
-            key={item["answer"]}
+            item={item}
+            key={itemIndex}
             choice1={item["question"]}
             choice2={item["answer"]}
             color={colors[itemIndex]}
@@ -90,7 +98,6 @@ const Review = () => {
             updateCount={updateCount}
             count={count}
             respondToCorrect={respondToCorrect}
-            respondToIncorrect={respondToIncorrect}
           />
         );
       });
@@ -98,15 +105,32 @@ const Review = () => {
     return (
       <>
         {finished ? (
-          <div style={{ textAlign: "center" }} className="finished">
-            <h1>You have reviewed all the words in this set!</h1>
-            <h3>Well Done!</h3>{" "}
-            <div className="item">
-              <div
-                onClick={() => history.push("/score")}
-                className="ui basic big button blue"
-              >
-                Show my scores!
+          <div className="container">
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div className="confetti"></div>
+            <div style={{ textAlign: "center" }} className="finished">
+              <h1>You have reviewed all the words in this set!</h1>
+              <h3>Well Done!</h3>{" "}
+              <div className="item">
+                <div
+                  onClick={() => history.push("/score")}
+                  className="ui basic big button blue"
+                >
+                  Show my scores!
+                </div>
               </div>
             </div>
           </div>

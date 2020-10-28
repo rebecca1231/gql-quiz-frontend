@@ -16,7 +16,7 @@ const Card = styled.div`
 
 const Flashcard = ({
   item,
-  choice1,
+  //choice1,
   choice2,
   color,
   answer,
@@ -25,7 +25,7 @@ const Flashcard = ({
   updateCount,
   count,
   respondToCorrect,
-  respondToIncorrect,
+  
 }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [wrongAnswer, setWrongAnswer] = useState(false);
@@ -39,8 +39,10 @@ const Flashcard = ({
         setTimeout(() => {
           return (
             updateScore(score),
+            console.log("score ", score),
             setCorrect(false),
             updateCount(count),
+            console.log("correctCount ",count),
             setCounter(0)
           );
         }, 1000)
@@ -48,10 +50,9 @@ const Flashcard = ({
     } else {
       return (
         setCorrect(true),
-        respondToIncorrect({ choice2, choice1 }),
         setCounter(0),
         setTimeout(() => {
-          return (setCorrect(false), updateCount(count));
+          return (setCorrect(false), updateCount(count), console.log("wrongCount ", count));
         }, 1000)
       );
     }
