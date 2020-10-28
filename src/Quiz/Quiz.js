@@ -23,7 +23,7 @@ const Review = () => {
   const history = useHistory();
   const [, setUpdate] = useState();
   const forceUpdate = useCallback(() => setUpdate({}), []);
-  const [finished, setFinished] = useState(true);
+  const [finished, setFinished] = useState(false);
   const { count, score, updateCount, updateScore } = useContext(CountContext);
 
   const { data: { getMovieList: list } = {} } = useQuery(
