@@ -61,17 +61,15 @@ const Review = () => {
             item = correctAnswers[getRandomNumber(correctAnswers.length)];
           } else {
             items.push(item);
-            console.log("pushedItem", item);
             counter++;
           }
         }
       }
-      console.log("chooseChoices", items);
+      console.log("Choices", items);
       return items;
     };
 
     const respondToCorrect = (item) => {
-      console.log("respondToCorr ", item, correctAnswers);
       if (correctAnswers.includes(item)) {
         return;
       } else correctAnswers.push(item);

@@ -39,10 +39,8 @@ const Flashcard = ({
         setTimeout(() => {
           return (
             updateScore(score),
-            console.log("score ", score),
             setCorrect(false),
             updateCount(count),
-            console.log("correctCount ",count),
             setCounter(0)
           );
         }, 1000)

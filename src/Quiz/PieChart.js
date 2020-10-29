@@ -1,16 +1,17 @@
 import React, { useRef, useEffect, useContext } from "react";
 import { select, arc, pie, scaleOrdinal, schemeBlues, interpolate } from "d3";
 import useResizeObserver from "../util/quiz/useResizeObserver";
-import { CountContext } from "../context/countContext";
+import {CountContext} from "../context/countContext";
 
 const PieChart = () => {
-  const { score, count } = useContext(CountContext);
+    const {score, count} = useContext(CountContext)
   const svgRef = useRef();
   const wrapperRef = useRef();
   const dimensions = useResizeObserver(wrapperRef);
-  const data = [score, count - 1 - score];
+  const data = [score, count - score];
 
   useEffect(() => {
+ 
     const colorScale = scaleOrdinal(schemeBlues[3]);
     const svg = select(svgRef.current);
     if (!dimensions) return;
@@ -28,7 +29,7 @@ const PieChart = () => {
       .attr("fill", (d, i) => colorScale(i))
       .style(
         "transform",
-        `translate(${dimensions.width / 0.5}px, ${dimensions.height}px)`
+        `translate(${dimensions.width / 2}px, ${dimensions.height}px)`
       )
       .attr("d", (instruction) => arcGenerator(instruction))
       .on("mouseenter", (d, i) => {
@@ -37,7 +38,7 @@ const PieChart = () => {
           .data(instructions)
           .join((enter) => enter.append("text"))
           .attr("class", "tooltip")
-          .text(i.index === 0 ? "Correct: " + i.value : "Incorrect: " + i.value)
+          .text(i.index === 0 ? "Correct: " + i.value : "Incorrect: " + (i.value-1))
           .attr("x", dimensions.width / 2)
           .attr("y", dimensions.height)
           .attr("text-anchor", "middle")
