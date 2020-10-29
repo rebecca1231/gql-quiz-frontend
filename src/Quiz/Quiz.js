@@ -56,9 +56,9 @@ const Review = () => {
         let counter = currentSet.length;
         items = [...currentSet];
         while (counter < 4) {
-          let item = correctAnswers[getRandomNumber(8)];
+          let item = correctAnswers[getRandomNumber(correctAnswers.length)];
           if (items.includes(item)) {
-            item = currentSet[getRandomNumber(currentSet.length)];
+            item = correctAnswers[getRandomNumber(correctAnswers.length)];
           } else {
             items.push(item);
             console.log("pushedItem", item);
