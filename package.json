@@ -11,6 +11,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "d3": "^6.2.0",
+    "emailjs-com": "^2.6.3",
     "graphql": "^15.3.0",
     "http-proxy-middleware": "^1.0.6",
     "jwt-decode": "^3.0.0",

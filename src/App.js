@@ -16,6 +16,7 @@ import QuizDetail from "./pages/QuizDetail";
 import Data from "./Quiz/Data";
 import Quiz from "./Quiz/Quiz";
 import Score from "./Quiz/Score";
+import About from './pages/About'
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
             <Route exact path="/quiz/:searchTerm" component={Quiz} />
             <Route exact path="/quiz" component={Quiz} />
             <Route exact path="/score" component={Score} />
-
+            <Route exact path="/about" component={About} />
             <Route exact path="/quizzes/:quizId" component={QuizDetail} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
