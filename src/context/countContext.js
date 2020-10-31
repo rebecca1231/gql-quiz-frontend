@@ -5,6 +5,7 @@ export const CountContext = createContext({})
 export const CountContextProvider = ({ children }) => {
   const [count, setCount] = useState(1)
   const [score, setScore] = useState(0)
+  
 
   const updateCount = count => {
     setCount(count + 1)

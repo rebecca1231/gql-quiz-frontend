@@ -25,6 +25,7 @@ const Review = () => {
   const forceUpdate = useCallback(() => setUpdate({}), []);
   const [finished, setFinished] = useState(false);
   const { count, score, updateCount, updateScore } = useContext(CountContext);
+  let wrong = []
 
   const { data: { getMovieList: list } = {} } = useQuery(
     FETCH_MOVIE_LIST_QUERY,
@@ -96,6 +97,7 @@ const Review = () => {
             updateCount={updateCount}
             count={count}
             respondToCorrect={respondToCorrect}
+            wrong={wrong}
           />
         );
       });
